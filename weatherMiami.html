@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Weather API</title>
+    <link rel="stylesheet" type="text/css" href="main.css"/>
+  </head>
+  <body>
+    <header>COP2111C Intermediate Web Scripting - Lab 6</header>
+    <main>
+      <h2>Weather API</h2>
+      <p id="weather"></p>
+      <p>Current Temp: <span id="temp"></span></p>
+      <p>Current Wind: <span id="wind"></span></p><br>
+      <p> Grab json file @  <a href="http://api.wunderground.com/api/e069d13c9432ad2f/conditions/q/FL/Miami.json" target="_blank">http://api.wunderground.com/api/e069d13c9432ad2f/conditions/q/FL/Miami.json</a></p>
+      <br><br>
+    </main> 
+    <script>
+      var weather = new XMLHttpRequest();
+      weather.open("GET", "http://api.wunderground.com/api/e069d13c9432ad2f/conditions/q/FL/Miami.json", false);
+      weather.send(null);
+
+      var r = JSON.parse(weather.response);
+
+      var display = "Current location: " + r.current_observation.display_location.full + "  <p>";
+      var temp = r.current_observation.temperature_string+ "  <p>";
+      var wind = r.current_observation.wind_string+ "  <p>";
+
+      function getWeather(id,res) {
+        document.getElementById(id).innerHTML=res;
+      }
+      getWeather("weather",display);
+      getWeather("temp",temp);
+      getWeather("wind",wind);
+    </script>
+    
+    <footer>COP2111C - Lab 6 - May 3, 2017</footer>
+  </body>
+</html>
